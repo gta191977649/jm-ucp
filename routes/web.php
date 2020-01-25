@@ -16,3 +16,6 @@ Route::get('login', 'JMLoginController@login')->name('login');
 Route::post('login', 'JMLoginController@loginApi')->name('login.post');
 Route::get('home', 'HomeController@index')->name('home');
 Route::get('logout', 'JMLoginController@logout')->name('logout');
+Route::get('account/nick', 'JMViewController@accountNickChangePage')->name('account.nickchange');
+
+Route::post('api/nickchange', 'JMViewController@nickChange')->name('api.nickchange');

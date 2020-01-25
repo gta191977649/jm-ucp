@@ -38,11 +38,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">{{ config('app.name', 'Laravel') }} <span class="badge">Beta</span></a>
+          <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }} <span class="badge">Beta</span></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">账户控制台</a></li>
+            <li><a href="#">账户控制台</a></li>
             <li><a href="#">服务器状态</a></li>
             <li><a href="#about">关于</a></li>
           </ul>

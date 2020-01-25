@@ -29,7 +29,7 @@
       </div>
       <h2>详细信息</h2>
       <hr/>
-      <table class="table table-bordered">
+      <table class="table table-hover">
         <thead>
             <tr>
               <th>属性</th>
@@ -77,7 +77,7 @@
             </tr>
             <tr>
                 <td>游玩时间</td>
-                <td>{{$user->OnlineTime}}</td>
+                <td>{{round($user->OnlineTime/60)}} 小时</td>
             </tr>
            
           </tbody>
