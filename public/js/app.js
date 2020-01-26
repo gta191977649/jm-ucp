@@ -37369,7 +37369,7 @@ var render = function() {
           }
         ],
         staticClass: "form-control",
-        attrs: { name: "nick", type: "text", placeholder: "限制英文+数字组合" },
+        attrs: { name: "nick", type: "text", placeholder: "新的昵称" },
         domProps: { value: _vm.nickname },
         on: {
           input: function($event) {

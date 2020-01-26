@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 Use App\User;
+use DB;
 
 
 class JMViewController extends Controller
@@ -27,15 +28,29 @@ class JMViewController extends Controller
         } else if($this->isNickExist($newNick)) {
             return response()->json([
                 'state' => 'FAIL',
-                'msg' => '该昵称已经存在！',
+                'msg' => '昵称: '.$newNick.' 已经存在！',
                 'new-nick' => $newNick,
             ]);
         }
-        return response()->json([
-            'state' => 'OK',
-            'msg' => '昵称修改成功！ 3秒后刷新页面...',
-            'new-nick' => $newNick,
-        ]);;
+        //修改昵称
+        $player = Auth::user();
+
+        $db = DB::update('update `users` set `NAME` = ? where `UID` = ?', [$newNick,$player->UID]);
+
+        if($db) {
+            return response()->json([
+                'state' => 'OK',
+                'msg' => '昵称修改成功！ 3秒后刷新页面...',
+                'new-nick' => $newNick,
+            ]);
+        } else {
+            return response()->json([
+                'state' => 'FAIL',
+                'msg' => '数据更新失败！',
+                'new-nick' => $newNick,
+            ]);
+        }
+        
     }
 
     public function isNickExist($nick) {

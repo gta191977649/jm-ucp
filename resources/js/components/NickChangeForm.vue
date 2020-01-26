@@ -3,7 +3,7 @@
         
         <div v-bind:class="classObject">
             <label for="exampleInputEmail1">新昵称</label>
-            <input name="nick" type="text" class="form-control" placeholder="限制英文+数字组合" v-model="nickname">
+            <input name="nick" type="text" class="form-control" placeholder="新的昵称" v-model="nickname">
             <span v-show="this.classObject['form-group has-error'] || this.classObject['form-group has-success']" id="helpBlock2" class="help-block">{{this.msg}}</span>
             <!--<p>csrf:{{ this.csrf }}</p>-->
         </div>
