@@ -63,4 +63,8 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\AttachOBJ','UID','UID');
     }
+
+    public function logs() {
+        return $this->hasMany('App\UserLog','UID','UID');
+    }
 }

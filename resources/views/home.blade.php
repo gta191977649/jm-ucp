@@ -82,6 +82,28 @@
            
           </tbody>
       </table>
+      <h2>活动记录</h2>
+      <hr/>
+      @if($user->logs->count() > 1)
+      <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>上线时间</th>
+                <th>下线时间</th>
+                <th>IP</th>
+            </tr>
+        </thead>
+        @foreach ($user->logs as $log)
+            <tr>
+                <td>{{$log->LoginTime}}</td>
+                <td>{{$log->DisTime}}</td>
+                <td>{{$log->IP}}</td>
+            </tr>
+        @endforeach
+    </table>
+      @else
+        <p class="text-center">暂无数据</p>
+      @endif
       
 
 

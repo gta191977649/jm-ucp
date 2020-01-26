@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 Use App\User;
 use DB;
-
+use ipinfo\ipinfo\IPinfo;
 
 class JMViewController extends Controller
 {
@@ -58,4 +58,6 @@ class JMViewController extends Controller
 
         return $users->count() ? true : false;
     }
+
+
 }
