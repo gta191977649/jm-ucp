@@ -2,7 +2,7 @@
 
 @section('content')
     
-    <h1>昵称修改</h1>
+    <h1>昵称修改 <small>{{$player->NAME}} - {{$player->UID}}</small></h1>
     <hr/>
     <div class="alert alert-info alert-dismissible" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

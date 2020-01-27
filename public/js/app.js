@@ -1921,6 +1921,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['action', 'csrf'],
   data: function data() {
@@ -1976,6 +1979,105 @@ __webpack_require__.r(__webpack_exports__);
         _this.classObject["form-group"] = false;
         _this.classObject["form-group has-success"] = false;
         _this.msg = "网络错误! 请重试";
+        _this.btn_stauts = false;
+      });
+      e.preventDefault();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PwdChangeForm.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PwdChangeForm.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['action', 'csrf'],
+  data: function data() {
+    return {
+      type: 'password',
+      oldPwd: '',
+      newPwd: '',
+      btn_stauts: false,
+      classObject: {
+        'form-group': true,
+        'form-group has-error': false,
+        'form-group has-success': false
+      },
+      msg: ''
+    };
+  },
+  methods: {
+    showPassword: function showPassword() {
+      this.type = this.type === 'password' ? 'text' : 'password';
+    },
+    submit: function submit(e) {
+      var _this = this;
+
+      //停用提交按钮，防止用户重复提交
+      this.btn_stauts = true;
+      fetch(this.action, {
+        method: 'POST',
+        // or 'PUT'
+        headers: {
+          'X-CSRF-TOKEN': this.csrf,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          oldpwd: this.oldPwd,
+          newpwd: this.newPwd
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        //console.log('Success:', data);
+        if (data.state === "FAIL") {
+          _this.classObject["form-group has-error"] = true;
+          _this.classObject["form-group"] = false;
+          _this.classObject["form-group has-success"] = false;
+          _this.msg = data.msg;
+          _this.btn_stauts = false;
+        } else if (data.state === "OK") {
+          _this.classObject["form-group has-error"] = false;
+          _this.classObject["form-group"] = false;
+          _this.classObject["form-group has-success"] = true;
+          _this.msg = data.msg; //刷新用户浏览器
+
+          setTimeout(function () {
+            location.reload();
+          }, 3000);
+        }
+      })["catch"](function (error) {
+        _this.classObject["form-group has-error"] = true;
+        _this.classObject["form-group"] = false;
+        _this.classObject["form-group has-success"] = false;
+        _this.msg = "网络错误! 请重试" + error;
         _this.btn_stauts = false;
       });
       e.preventDefault();
@@ -37420,6 +37522,236 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PwdChangeForm.vue?vue&type=template&id=02070254&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PwdChangeForm.vue?vue&type=template&id=02070254& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", [
+    _c("div", { class: _vm.classObject }, [
+      _c("label", { attrs: { for: "exampleInputEmail1" } }, [_vm._v("旧密码")]),
+      _vm._v(" "),
+      this.type === "checkbox"
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.oldPwd,
+                expression: "oldPwd"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { name: "oldpwd", placeholder: "旧密码", type: "checkbox" },
+            domProps: {
+              checked: Array.isArray(_vm.oldPwd)
+                ? _vm._i(_vm.oldPwd, null) > -1
+                : _vm.oldPwd
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.oldPwd,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && (_vm.oldPwd = $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      (_vm.oldPwd = $$a
+                        .slice(0, $$i)
+                        .concat($$a.slice($$i + 1)))
+                  }
+                } else {
+                  _vm.oldPwd = $$c
+                }
+              }
+            }
+          })
+        : this.type === "radio"
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.oldPwd,
+                expression: "oldPwd"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { name: "oldpwd", placeholder: "旧密码", type: "radio" },
+            domProps: { checked: _vm._q(_vm.oldPwd, null) },
+            on: {
+              change: function($event) {
+                _vm.oldPwd = null
+              }
+            }
+          })
+        : _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.oldPwd,
+                expression: "oldPwd"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { name: "oldpwd", placeholder: "旧密码", type: this.type },
+            domProps: { value: _vm.oldPwd },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.oldPwd = $event.target.value
+              }
+            }
+          }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "exampleInputEmail1" } }, [_vm._v("新密码")]),
+      _vm._v(" "),
+      this.type === "checkbox"
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newPwd,
+                expression: "newPwd"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { name: "newpwd", placeholder: "新密码", type: "checkbox" },
+            domProps: {
+              checked: Array.isArray(_vm.newPwd)
+                ? _vm._i(_vm.newPwd, null) > -1
+                : _vm.newPwd
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.newPwd,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && (_vm.newPwd = $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      (_vm.newPwd = $$a
+                        .slice(0, $$i)
+                        .concat($$a.slice($$i + 1)))
+                  }
+                } else {
+                  _vm.newPwd = $$c
+                }
+              }
+            }
+          })
+        : this.type === "radio"
+        ? _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newPwd,
+                expression: "newPwd"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { name: "newpwd", placeholder: "新密码", type: "radio" },
+            domProps: { checked: _vm._q(_vm.newPwd, null) },
+            on: {
+              change: function($event) {
+                _vm.newPwd = null
+              }
+            }
+          })
+        : _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.newPwd,
+                expression: "newPwd"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { name: "newpwd", placeholder: "新密码", type: this.type },
+            domProps: { value: _vm.newPwd },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.newPwd = $event.target.value
+              }
+            }
+          }),
+      _vm._v(" "),
+      _c(
+        "span",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value:
+                this.classObject["form-group has-error"] ||
+                this.classObject["form-group has-success"],
+              expression:
+                "this.classObject['form-group has-error'] || this.classObject['form-group has-success']"
+            }
+          ],
+          staticClass: "help-block",
+          attrs: { id: "helpBlock2" }
+        },
+        [_vm._v(_vm._s(this.msg))]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "checkbox" }, [
+        _c("label", [
+          _c("input", {
+            attrs: { type: "checkbox" },
+            on: { click: _vm.showPassword }
+          }),
+          _vm._v("显示密码\n            ")
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        staticClass: "btn btn-primary pull-right",
+        attrs: { disabled: this.btn_stauts, type: "text" },
+        on: { click: _vm.submit }
+      },
+      [_vm._v("修改")]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -49603,6 +49935,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('NickChangeForm', __webpack_require__(/*! ./components/NickChangeForm.vue */ "./resources/js/components/NickChangeForm.vue")["default"]);
+Vue.component('PwdChangeForm', __webpack_require__(/*! ./components/PwdChangeForm.vue */ "./resources/js/components/PwdChangeForm.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -49724,6 +50057,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NickChangeForm_vue_vue_type_template_id_4c977802___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_NickChangeForm_vue_vue_type_template_id_4c977802___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/PwdChangeForm.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/PwdChangeForm.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PwdChangeForm_vue_vue_type_template_id_02070254___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PwdChangeForm.vue?vue&type=template&id=02070254& */ "./resources/js/components/PwdChangeForm.vue?vue&type=template&id=02070254&");
+/* harmony import */ var _PwdChangeForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PwdChangeForm.vue?vue&type=script&lang=js& */ "./resources/js/components/PwdChangeForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _PwdChangeForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PwdChangeForm_vue_vue_type_template_id_02070254___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PwdChangeForm_vue_vue_type_template_id_02070254___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/PwdChangeForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/PwdChangeForm.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/PwdChangeForm.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PwdChangeForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PwdChangeForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PwdChangeForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PwdChangeForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/PwdChangeForm.vue?vue&type=template&id=02070254&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/PwdChangeForm.vue?vue&type=template&id=02070254& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PwdChangeForm_vue_vue_type_template_id_02070254___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PwdChangeForm.vue?vue&type=template&id=02070254& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PwdChangeForm.vue?vue&type=template&id=02070254&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PwdChangeForm_vue_vue_type_template_id_02070254___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PwdChangeForm_vue_vue_type_template_id_02070254___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

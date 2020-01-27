@@ -2,7 +2,7 @@
     <li><strong>账户</strong></li>
     <li><a href="{{ route('home') }}">基本信息</a></li>
     <li><a href="{{ route('account.nickchange') }}">昵称修改</a></li>
-    <li><a href="#">密码修改</a></li>
+    <li><a href="{{ route('account.pwdchange') }}">密码修改</a></li>
     <li><strong>玩家装扮</strong></li>
     <li><a href="#">装扮一览</a></li>
     <li><a href="#">装扮导入</a></li>

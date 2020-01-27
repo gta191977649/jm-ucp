@@ -2,15 +2,19 @@
     <form>
         
         <div v-bind:class="classObject">
-            <label for="exampleInputEmail1">新昵称</label>
-            <input name="nick" type="text" class="form-control" placeholder="新的昵称" v-model="nickname">
+            <label for="exampleInputEmail1">旧密码</label>
+            <input name="oldpwd" :type="this.type" class="form-control" placeholder="旧密码" v-model="oldPwd">
+            <label for="exampleInputEmail1">新密码</label>
+            <input name="newpwd" :type="this.type" class="form-control" placeholder="新密码" v-model="newPwd">
             <span v-show="this.classObject['form-group has-error'] || this.classObject['form-group has-success']" id="helpBlock2" class="help-block">{{this.msg}}</span>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" v-on:click="showPassword">显示密码
+                </label>
+            </div>
             <!--<p>csrf:{{ this.csrf }}</p>-->
         </div>
-
         <button :disabled="this.btn_stauts" v-on:click="submit" type="text" class="btn btn-primary pull-right">修改</button>
-        
-        
 
     </form>
 </template>
@@ -19,7 +23,9 @@
         props: ['action','csrf'],
             data() {
                 return {
-                    nickname: '',
+                    type:'password',
+                    oldPwd: '',
+                    newPwd: '',
                     btn_stauts:false,
                     classObject: {
                         'form-group': true,
@@ -30,6 +36,9 @@
                 }
         },
         methods: {
+            showPassword: function() {
+                this.type = this.type === 'password' ? 'text' : 'password'
+            },
             submit: function (e) {
                 //停用提交按钮，防止用户重复提交
                 this.btn_stauts = true
@@ -41,7 +50,8 @@
                             'Content-Type': 'application/json',
                         },
                         body:JSON.stringify({
-                            nick:this.nickname,
+                            oldpwd:this.oldPwd,
+                            newpwd:this.newPwd,
                         }),
                     })
                     .then((response) => response.json())
@@ -68,7 +78,7 @@
                         this.classObject["form-group has-error"] = true
                         this.classObject["form-group"] = false
                         this.classObject["form-group has-success"] = false
-                        this.msg = "网络错误! 请重试"
+                        this.msg = "网络错误! 请重试" + error
                         this.btn_stauts = false
                     });
 
