@@ -2030,7 +2030,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       rawData: [],
       map: "",
-      drawDistance: 300
+      drawDistance: 300,
+      selectFormat: "samp"
     };
   },
   methods: {
@@ -2038,7 +2039,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       rawData.map(function (val) {
-        _this.map += "CreateObject(".concat(val['OID'], ", ").concat(val['X'], ", ").concat(val['Y'], ",").concat(val['Z'], ",").concat(val['RX'], ",").concat(val['RY'], ", ").concat(val['RZ'], ", ").concat(_this.drawDistance, ")\n");
+        var functionName = _this.selectFormat === "samp" ? "CreateObject" : "CreateDynamicObject";
+        _this.map += "".concat(functionName, "(").concat(val['OID'], ", ").concat(val['X'], ", ").concat(val['Y'], ",").concat(val['Z'], ",").concat(val['RX'], ",").concat(val['RY'], ", ").concat(val['RZ'], ", ").concat(_this.drawDistance, ")\n");
       });
     },
     selectAll: function selectAll() {
@@ -2048,6 +2050,10 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     drawDistance: function drawDistance(newVal) {
       //console.log(newVal)
+      this.map = "";
+      this.processMapFormat(this.rawData);
+    },
+    selectFormat: function selectFormat(newVal) {
       this.map = "";
       this.processMapFormat(this.rawData);
     }
@@ -38277,9 +38283,57 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "radio-inline" }, [
+      _c("label", [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selectFormat,
+              expression: "selectFormat"
+            }
+          ],
+          attrs: {
+            type: "radio",
+            name: "optionsRadios",
+            id: "optionsRadios1",
+            value: "samp",
+            checked: ""
+          },
+          domProps: { checked: _vm._q(_vm.selectFormat, "samp") },
+          on: {
+            change: function($event) {
+              _vm.selectFormat = "samp"
+            }
+          }
+        }),
+        _vm._v("\n            SA-MP 格式\n        ")
+      ])
+    ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "radio-inline" }, [
+      _c("label", [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selectFormat,
+              expression: "selectFormat"
+            }
+          ],
+          attrs: { type: "radio", name: "optionsRadios", value: "streamer" },
+          domProps: { checked: _vm._q(_vm.selectFormat, "streamer") },
+          on: {
+            change: function($event) {
+              _vm.selectFormat = "streamer"
+            }
+          }
+        }),
+        _vm._v("\n        Streamer格式\n        ")
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("label", [_vm._v("绘制距离")]),
@@ -38331,7 +38385,7 @@ var render = function() {
       }),
       _vm._v(" "),
       _c("p", { staticClass: "text-right" }, [
-        _vm._v("总计:" + _vm._s(this.rawData.length) + "条数据")
+        _vm._v("已处理" + _vm._s(this.rawData.length) + "条数据")
       ])
     ]),
     _vm._v(" "),
@@ -38346,40 +38400,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "radio-inline" }, [
-      _c("label", [
-        _c("input", {
-          attrs: {
-            type: "radio",
-            name: "optionsRadios",
-            id: "optionsRadios1",
-            value: "option1",
-            checked: ""
-          }
-        }),
-        _vm._v("\n            SA-MP 格式\n        ")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "radio-inline" }, [
-      _c("label", [
-        _c("input", {
-          attrs: { type: "radio", name: "optionsRadios", value: "option2" }
-        }),
-        _vm._v("\n        Streamer格式\n        ")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

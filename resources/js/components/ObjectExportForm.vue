@@ -2,13 +2,13 @@
     <div class="content">
         <div class="radio-inline">
             <label>
-                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                <input type="radio" v-model="selectFormat" name="optionsRadios" id="optionsRadios1" value="samp" checked>
                 SA-MP 格式
             </label>
         </div>
         <div class="radio-inline">
         <label>
-            <input type="radio" name="optionsRadios" value="option2">
+            <input type="radio" v-model="selectFormat" name="optionsRadios" value="streamer">
             Streamer格式
             </label>
         </div>
@@ -18,7 +18,7 @@
         </div>
         <div class="form-group">
             <textarea ref="code" class="form-control objexport" v-model="map"></textarea>
-            <p class="text-right">总计:{{this.rawData.length}}条数据</p>
+            <p class="text-right">已处理{{this.rawData.length}}条数据</p>
         </div>
 
         <button type="text" @click="selectAll" class="btn btn-primary pull-right">复制</button>
@@ -33,13 +33,15 @@
                 rawData: [],
                 map:"",
                 drawDistance: 300,
+                selectFormat: "samp",
             }
         },
        
         methods:{
             processMapFormat(rawData) {
                 rawData.map((val) =>{
-                    this.map += `CreateObject(${val['OID']}, ${val['X']}, ${val['Y']},${val['Z']},${val['RX']},${val['RY']}, ${val['RZ']}, ${this.drawDistance})\n`
+                    let functionName = this.selectFormat === "samp" ? "CreateObject" : "CreateDynamicObject"
+                    this.map += `${functionName}(${val['OID']}, ${val['X']}, ${val['Y']},${val['Z']},${val['RX']},${val['RY']}, ${val['RZ']}, ${this.drawDistance})\n`
                 })
             },
             selectAll() {
@@ -50,6 +52,10 @@
         watch:{
             drawDistance: function(newVal) {
                 //console.log(newVal)
+                this.map = ""
+                this.processMapFormat(this.rawData)
+            },
+            selectFormat : function(newVal) {
                 this.map = ""
                 this.processMapFormat(this.rawData)
             }
