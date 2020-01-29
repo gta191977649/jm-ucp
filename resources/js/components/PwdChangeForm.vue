@@ -69,7 +69,6 @@
                             this.classObject["form-group has-success"] = true
                             this.msg = data.msg
                             //刷新用户浏览器
-                        
                             setTimeout(function(){location.reload()}, 3000);
 
                         }

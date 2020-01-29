@@ -14,5 +14,5 @@
     <li><strong>OBJ</strong></li>
     <li><a href="#">OBJ一览</a></li>
     <li><a href="#">OBJ导入</a></li>
-    <li><a href="#">OBJ导出</a></li>
+    <li><a href="{{ route('map.export') }}">OBJ导出</a></li>
 </ul>

@@ -53,6 +53,27 @@ class JMViewController extends Controller
         
     }
 
+    public function objectsPage(Request $req) {
+        $player = Auth::user();
+
+        return view('map.objs')->with('player', $player);
+    }
+
+    public function apiObjectsPage() {
+        $player = Auth::user();
+        if($player) {
+            return response()->json([
+                'state' => 'OK',
+                'data' => $player->objs,
+            ]);
+        } else {
+            return response()->json([
+                'state' => 'FAIL',
+                'msg' => "用户名不存在",
+            ]);
+        }
+    }
+
     public function isNickExist($nick) {
         $users = User::where("NAME","=",$nick)->get();
 
