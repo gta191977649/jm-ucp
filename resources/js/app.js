@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('NickChangeForm', require('./components/NickChangeForm.vue').default);
 Vue.component('PwdChangeForm', require('./components/PwdChangeForm.vue').default);
 Vue.component('ObjectExportForm', require('./components/ObjectExportForm.vue').default);
+Vue.component('ServerInfoPage', require('./components/ServerInfoPage.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

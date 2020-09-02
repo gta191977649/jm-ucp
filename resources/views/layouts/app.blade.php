@@ -43,7 +43,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="#">账户控制台</a></li>
-            <li><a href="#">服务器状态</a></li>
+            <li><a href="{{ route('server.status') }}">服务器状态</a></li>
             <li><a href="#about">关于</a></li>
           </ul>
           <ul class="nav navbar-nav pull-right">

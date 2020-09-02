@@ -19,7 +19,11 @@ Route::get('logout', 'JMLoginController@logout')->name('logout');
 Route::get('account/nick', 'JMViewController@accountNickChangePage')->name('account.nickchange');
 Route::get('account/pwd', 'JMViewController@accountPwdChangePage')->name('account.pwdchange');
 Route::get('map/export', 'JMViewController@objectsPage')->name('map.export');
+//Information controller
+Route::get('status', 'InformationController@status')->name('server.status');
 
+//API
 Route::post('api/nickchange', 'JMViewController@nickChange')->name('api.nickchange');
 Route::post('api/pwdchange', 'JMViewController@pwdchange')->name('api.pwdchange');
 Route::get('api/objects', 'JMViewController@apiObjectsPage')->name('api.objects.export');
+Route::get('api/serverinfo', 'InformationController@query')->name('api.info');
